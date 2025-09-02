@@ -30,9 +30,9 @@ namespace BankApp
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.loginEmailTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.pinTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -43,36 +43,38 @@ namespace BankApp
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(84, 76);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Username";
+            this.label1.Text = "Email";
             this.label1.Click += new System.EventHandler(this.Label1_Click);
             // 
-            // textBox1
+            // loginEmailTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(145, 69);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.loginEmailTextBox.Location = new System.Drawing.Point(145, 69);
+            this.loginEmailTextBox.Name = "loginEmailTextBox";
+            this.loginEmailTextBox.Size = new System.Drawing.Size(100, 20);
+            this.loginEmailTextBox.TabIndex = 1;
+            this.loginEmailTextBox.Text = "piezerelmarian3@gmail.com";
+            this.loginEmailTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(84, 115);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 13);
+            this.label2.Size = new System.Drawing.Size(22, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Password";
+            this.label2.Text = "Pin";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // textBox2
+            // pinTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(145, 112);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.pinTextBox.Location = new System.Drawing.Point(145, 112);
+            this.pinTextBox.Name = "pinTextBox";
+            this.pinTextBox.Size = new System.Drawing.Size(100, 20);
+            this.pinTextBox.TabIndex = 3;
+            this.pinTextBox.Text = "5374";
+            this.pinTextBox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label3
             // 
@@ -111,10 +113,10 @@ namespace BankApp
             this.ClientSize = new System.Drawing.Size(344, 328);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.pinTextBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.loginEmailTextBox);
             this.Controls.Add(this.label1);
             this.Name = "Login";
             this.Text = "Form1";
@@ -126,9 +128,9 @@ namespace BankApp
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox loginEmailTextBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox pinTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
