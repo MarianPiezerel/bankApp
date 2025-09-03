@@ -35,8 +35,8 @@ namespace BankApp
             this.receiverIbanTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.money = new System.Windows.Forms.Label();
             this.balanceLabel = new System.Windows.Forms.Label();
+            this.welcomeLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SendMoneyButton
@@ -52,6 +52,10 @@ namespace BankApp
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
+            this.listBox1.Items.AddRange(new object[] {
+            "test",
+            "test1",
+            "test2"});
             this.listBox1.Location = new System.Drawing.Point(491, 34);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(120, 95);
@@ -64,6 +68,7 @@ namespace BankApp
             this.amountTextBox.Name = "amountTextBox";
             this.amountTextBox.Size = new System.Drawing.Size(100, 20);
             this.amountTextBox.TabIndex = 3;
+            this.amountTextBox.TextChanged += new System.EventHandler(this.amountTextBox_TextChanged);
             // 
             // receiverIbanTextBox
             // 
@@ -90,25 +95,25 @@ namespace BankApp
             this.label2.TabIndex = 4;
             this.label2.Text = "Iban";
             // 
-            // money
-            // 
-            this.money.AutoSize = true;
-            this.money.Location = new System.Drawing.Point(16, 34);
-            this.money.Name = "money";
-            this.money.Size = new System.Drawing.Size(39, 13);
-            this.money.TabIndex = 5;
-            this.money.Text = "Money";
-            this.money.Click += new System.EventHandler(this.label3_Click);
-            // 
             // balanceLabel
             // 
             this.balanceLabel.AutoSize = true;
-            this.balanceLabel.Location = new System.Drawing.Point(61, 34);
+            this.balanceLabel.Location = new System.Drawing.Point(20, 34);
             this.balanceLabel.Name = "balanceLabel";
             this.balanceLabel.Size = new System.Drawing.Size(35, 13);
             this.balanceLabel.TabIndex = 6;
             this.balanceLabel.Text = "label3";
             this.balanceLabel.Click += new System.EventHandler(this.balanceLabel_Click);
+            // 
+            // welcomeLabel
+            // 
+            this.welcomeLabel.AutoSize = true;
+            this.welcomeLabel.Location = new System.Drawing.Point(20, 9);
+            this.welcomeLabel.Name = "welcomeLabel";
+            this.welcomeLabel.Size = new System.Drawing.Size(52, 13);
+            this.welcomeLabel.TabIndex = 5;
+            this.welcomeLabel.Text = "Welcome";
+            this.welcomeLabel.Click += new System.EventHandler(this.label3_Click);
             // 
             // HomePage
             // 
@@ -116,7 +121,7 @@ namespace BankApp
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.balanceLabel);
-            this.Controls.Add(this.money);
+            this.Controls.Add(this.welcomeLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.receiverIbanTextBox);
@@ -137,7 +142,7 @@ namespace BankApp
         private System.Windows.Forms.TextBox receiverIbanTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label money;
         private System.Windows.Forms.Label balanceLabel;
+        private System.Windows.Forms.Label welcomeLabel;
     }
 }

@@ -22,6 +22,8 @@ namespace BankApp
 
         private void LoadBalance()
         {
+            welcomeLabel.Text = "Welcome" + CurrentUser.FirstName + CurrentUser.LastName;
+
             using (SqlConnection con = new SqlConnection(DatabaseConfig.ConnectionString))
             {
                 con.Open();
@@ -34,7 +36,7 @@ namespace BankApp
                     object result = cmd.ExecuteScalar();
                     decimal balance = (result != DBNull.Value) ? Convert.ToDecimal(result) : 0;
 
-                    balanceLabel.Text = balance.ToString("C");
+                    balanceLabel.Text = "Your balance is:" + balance.ToString("C");
                 }
             }
         }
@@ -66,29 +68,73 @@ namespace BankApp
 
         private void SendMoneyButton_Click(object sender, EventArgs e)
         {
+
+            decimal amount;
+            if (!decimal.TryParse(amountTextBox.Text, out amount) || amount <= 0)
+            {
+                MessageBox.Show("Please enter a valid amount.");
+                return;
+            }
+
             using (SqlConnection con = new SqlConnection(DatabaseConfig.ConnectionString))
             {
                 con.Open();
-                string query = "Insert Into Transactions (UserId, Amount, TransactionDate, Description) " +
-                                "Values((Select Id From UserInfo_New Where GeneratedIban = @iban), @amount, @transactionDate, @description)";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@iban", receiverIbanTextBox.Text);
-                cmd.Parameters.AddWithValue("@amount", amountTextBox.Text);
-                cmd.Parameters.AddWithValue("@transactionDate", DateTime.UtcNow);
-                cmd.Parameters.AddWithValue("@description", "test");
 
-                cmd.ExecuteNonQuery();
+                SqlTransaction transaction = con.BeginTransaction();
+
+                try
+                {
+
+                    string receiverquery = "Insert Into Transactions (UserId, Amount, TransactionDate, Description) " +
+                                    "Values((Select Id From UserInfo_New Where GeneratedIban = @iban), @amount, @transactionDate, @description)";
+                    using (SqlCommand cmd = new SqlCommand(receiverquery, con, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("@iban", receiverIbanTextBox.Text);
+                        cmd.Parameters.AddWithValue("@amount", amount);
+                        cmd.Parameters.AddWithValue("@transactionDate", DateTime.UtcNow);
+                        cmd.Parameters.AddWithValue("@description", "money received from " + CurrentUser.FirstName);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    string senderquery = "Insert Into Transactions (UserId, Amount, TransactionDate, Description) " +
+                                    "Values(@senderId, @amount, @transactionDate, @description)";
+                    using (SqlCommand command = new SqlCommand(senderquery, con, transaction))
+                    {
+                        command.Parameters.AddWithValue("@senderId", CurrentUser.Id);
+                        command.Parameters.AddWithValue("@amount", -amount);
+                        command.Parameters.AddWithValue("@transactionDate", DateTime.UtcNow);
+                        command.Parameters.AddWithValue("@description", "money sent");
+
+                        command.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    MessageBox.Show("Transfer failed!");
+                    return;
+                }
+
+
+                LoadBalance();
+
             }
         }
-
         private void label3_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void balanceLabel_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void amountTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
